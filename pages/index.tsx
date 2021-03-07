@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Page from '../layouts/Page'
-import { Card, Statistic, Row, Col, Divider } from 'antd'
+import { Card, Statistic, Row, Col, Divider, Tabs, Radio, Space, Select, DatePicker, Table } from 'antd'
+const { RangePicker } = DatePicker;
+const { TabPane } = Tabs;
+const { Option, OptGroup } = Select;
 import dynamic from 'next/dynamic'
 const Area = dynamic(
   () => import("@ant-design/charts").then((mod) => mod.Area) as any,
@@ -129,6 +132,58 @@ const Index: React.FC = () => {
     }
   };
 
+  const tableColumns = [
+    {
+      title: 'Browser',
+      dataIndex: 'browser',
+      key: 'browser',
+    },
+    {
+      title: '% errors',
+      dataIndex: 'perc_errors',
+      key: 'perc_errors',
+    },
+    {
+      title: 'Total errors',
+      dataIndex: 'total_errors',
+      key: 'total_errors',
+    },
+    {
+      title: '% views',
+      dataIndex: 'perc_views',
+      key: 'perc_views',
+    },
+    {
+      title: 'Total views',
+      dataIndex: 'total_views',
+      key: 'total_views',
+    }
+];
+
+  const tableData = [
+    {
+      browser: 'Chrome',
+      perc_errors: 85,
+      total_errors: '285,087',
+      perc_views: 15,
+      total_views: '90,756',
+    },
+    {
+      browser: 'Firefox',
+      perc_errors: 3,
+      total_errors: '1,200',
+      perc_views: 97,
+      total_views: '23,894',
+    },
+    {
+      browser: 'Safari',
+      perc_errors: 0,
+      total_errors: 0,
+      perc_views: 100,
+      total_views: 998,
+    }
+  ]
+
   useEffect(() => { }, [])
 
   return (<Page>
@@ -142,12 +197,25 @@ const Index: React.FC = () => {
     >
 
     <Row>
-      <Col span={12}>
-        <Statistic title="Playback Success Score" value={93} suffix="/ 100" />
-      </Col>
+      <Col span={24}>
+        <Select defaultValue="l12h" size='large' style={{ width: 200 }}>
+          <Option value="l60m">Last 60 minutes</Option>
+          <Option value="l6h">Last 6 hourse</Option>
+          <Option value="l12h">Last 12 hourse</Option>
+          <Option value="l24">Last 24 hourse</Option>
+          <Option value="l3e">Last 3 days</Option>
+          <OptGroup label="Custom">
+            <Option value="datepicker">
+                <Space direction="vertical" size={12}>
+                  <RangePicker />
+                </Space>
+            </Option>
+          </OptGroup>
+        </Select>
 
-      <Col span={12}>
-          <Statistic style={{ float: 'right' }} title="Total video views" value={1201025} />
+
+        <Statistic style={{ float: 'right' }} title="Total video views" value={1201025} />
+        <Statistic style={{ float: 'right', marginRight: 21 }} title="Playback Errors Score" value={93} suffix="/ 100" />
       </Col>
     </Row>
 
@@ -156,6 +224,21 @@ const Index: React.FC = () => {
         <Area {...config} />
     </Row>
 
+    <Divider />
+
+      <Tabs tabPosition="left">
+        <TabPane tab="Device Type" key="device_type">
+
+        </TabPane>
+        <TabPane tab="Browser" key="browser">
+          <Table columns={tableColumns} dataSource={tableData} pagination={false} />
+        </TabPane>
+        <TabPane tab="Operation System" key="os"></TabPane>
+        <TabPane tab="Source Host" key="sourse_host"></TabPane>
+        <TabPane tab="Video Type" key="video_type"></TabPane>
+        <TabPane tab="Video Id" key="video_id"></TabPane>
+        <TabPane tab="Video Title" key="video_title"></TabPane>
+      </Tabs>
 
     </Card>
   </Page>)

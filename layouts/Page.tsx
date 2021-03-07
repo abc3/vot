@@ -21,7 +21,7 @@ const Page: React.FC = (props) => (
       <div className="logo"><h1 style={{ color: '#fff', marginTop: 12,marginLeft: 12, fontSize: '2em' }}>VOT</h1></div>
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
         <Menu.Item key="1" icon={<PieChartOutlined />}>
-          Playback Success
+          Playback Errors
         </Menu.Item>
         {/* <Menu.Item key="2" icon={<DesktopOutlined />}>
           Option 2
@@ -47,7 +47,7 @@ const Page: React.FC = (props) => (
           {/* <Breadcrumb.Item>Errors</Breadcrumb.Item>
           <Breadcrumb.Item>Pulse</Breadcrumb.Item> */}
         </Breadcrumb>
-        <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+        <div className="site-layout-background" style={{ padding: 24, minHeight: 360, maxWidth: 1200 }}>
           {props.children}
         </div>
       </Content>
