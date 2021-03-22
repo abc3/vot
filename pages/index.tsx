@@ -4,133 +4,288 @@ import { Card, Statistic, Row, Col, Divider, Tabs, Radio, Space, Select, DatePic
 const { RangePicker } = DatePicker;
 const { TabPane } = Tabs;
 const { Option, OptGroup } = Select;
-import dynamic from 'next/dynamic'
-const Area = dynamic(
-  () => import("@ant-design/charts").then((mod) => mod.Area) as any,
-  { ssr: false }
-)
+// import dynamic from 'next/dynamic'
+// const Area = dynamic(
+//   () => import("@ant-design/charts").then((mod) => mod.Area) as any,
+//   { ssr: false }
+// )
+
+import { ResponsiveLine } from '@nivo/line'
 
 const Index: React.FC = () => {
 
-  var data = [
-    {
-      time: '12pm',
-      value: 95,
-    },
-    {
-      time: '1pm',
-      value: 93,
-    },
-    {
-      time: '2pm',
-      value: 90,
-    },
-    {
-      time: '3pm',
-      value: 85,
-    },
-    {
-      time: '4pm',
-      value: 90,
-    },
-    {
-      time: '5pm',
-      value: 80,
-    },
-    {
-      time: '6pm',
-      value: 55,
-    },
-    {
-      time: '7pm',
-      value: 30,
-    },
-    {
-      time: '8pm',
-      value: 25,
-    },
-    {
-      time: '9pm',
-      value: 72,
-    },
-    {
-      time: '10pm',
-      value: 89,
-    },
-    {
-      time: '11pm',
-      value: 95,
-    },
-    {
-      time: '12am',
-      value: 90,
-    }
-  ];
-  var config = {
-    data: data,
-    xField: 'time',
-    yField: 'value',
-    label: {},
-    point: {
-      size: 2,
-      shape: 'diamond',
-      style: {
-        fill: 'white',
-        stroke: '#5B8FF9',
-        lineWidth: 2,
-      },
-    },
-    // isPercent: true,
-    tooltip: { showMarkers: false },
-    xAxis: {
-      grid: { line: { style: { stroke: '#eee' } } },
-      line: { style: { stroke: '#aaa' } },
-    },
-    areaStyle: { fillOpacity: 0.7 },
-    // appendPadding: 10,
-    // yAxis: {
-    //   // label: {
-    //   //   formatter: function formatter(value: number) {
-    //   //     return value * 100;
-    //   //   },
-    //   // },
-    // },
-    meta: {
-      value: {
-        min: 0,
-        max: 100,
-      },
-    },
-    state: {
-      active: {
-        style: {
-          shadowColor: 'yellow',
-          shadowBlur: 4,
-          stroke: 'transparent',
-          fill: 'red',
-        },
-      },
-    },
-    theme: {
-      geometries: {
-        point: {
-          diamond: {
-            active: {
-              style: {
-                shadowColor: '#FCEBB9',
-                shadowBlur: 2,
-                stroke: '#F6BD16',
-              },
+      let d: any = [
+            {
+              "id": "japan",
+              "color": "hsl(75, 70%, 50%)",
+              "data": [
+                {
+                  "x": "plane",
+                  "y": 17
+                },
+                {
+                  "x": "helicopter",
+                  "y": 157
+                },
+                {
+                  "x": "boat",
+                  "y": 277
+                },
+                {
+                  "x": "train",
+                  "y": 38
+                },
+                {
+                  "x": "subway",
+                  "y": 78
+                },
+                {
+                  "x": "bus",
+                  "y": 298
+                },
+                {
+                  "x": "car",
+                  "y": 152
+                },
+                {
+                  "x": "moto",
+                  "y": 102
+                },
+                {
+                  "x": "bicycle",
+                  "y": 50
+                },
+                {
+                  "x": "horse",
+                  "y": 145
+                },
+                {
+                  "x": "skateboard",
+                  "y": 196
+                },
+                {
+                  "x": "others",
+                  "y": 196
+                }
+              ]
             },
-          },
-        },
-      },
-    },
-    interactions: [{ type: 'marker-active' }],
-    style: {
-      width: '100%'
-    }
-  };
+            {
+              "id": "france",
+              "color": "hsl(311, 70%, 50%)",
+              "data": [
+                {
+                  "x": "plane",
+                  "y": 124
+                },
+                {
+                  "x": "helicopter",
+                  "y": 156
+                },
+                {
+                  "x": "boat",
+                  "y": 276
+                },
+                {
+                  "x": "train",
+                  "y": 109
+                },
+                {
+                  "x": "subway",
+                  "y": 77
+                },
+                {
+                  "x": "bus",
+                  "y": 124
+                },
+                {
+                  "x": "car",
+                  "y": 26
+                },
+                {
+                  "x": "moto",
+                  "y": 150
+                },
+                {
+                  "x": "bicycle",
+                  "y": 41
+                },
+                {
+                  "x": "horse",
+                  "y": 94
+                },
+                {
+                  "x": "skateboard",
+                  "y": 148
+                },
+                {
+                  "x": "others",
+                  "y": 112
+                }
+              ]
+            },
+            {
+              "id": "us",
+              "color": "hsl(258, 70%, 50%)",
+              "data": [
+                {
+                  "x": "plane",
+                  "y": 223
+                },
+                {
+                  "x": "helicopter",
+                  "y": 109
+                },
+                {
+                  "x": "boat",
+                  "y": 186
+                },
+                {
+                  "x": "train",
+                  "y": 69
+                },
+                {
+                  "x": "subway",
+                  "y": 15
+                },
+                {
+                  "x": "bus",
+                  "y": 193
+                },
+                {
+                  "x": "car",
+                  "y": 72
+                },
+                {
+                  "x": "moto",
+                  "y": 142
+                },
+                {
+                  "x": "bicycle",
+                  "y": 8
+                },
+                {
+                  "x": "horse",
+                  "y": 291
+                },
+                {
+                  "x": "skateboard",
+                  "y": 159
+                },
+                {
+                  "x": "others",
+                  "y": 123
+                }
+              ]
+            },
+            {
+              "id": "germany",
+              "color": "hsl(56, 70%, 50%)",
+              "data": [
+                {
+                  "x": "plane",
+                  "y": 105
+                },
+                {
+                  "x": "helicopter",
+                  "y": 102
+                },
+                {
+                  "x": "boat",
+                  "y": 6
+                },
+                {
+                  "x": "train",
+                  "y": 34
+                },
+                {
+                  "x": "subway",
+                  "y": 30
+                },
+                {
+                  "x": "bus",
+                  "y": 268
+                },
+                {
+                  "x": "car",
+                  "y": 130
+                },
+                {
+                  "x": "moto",
+                  "y": 275
+                },
+                {
+                  "x": "bicycle",
+                  "y": 179
+                },
+                {
+                  "x": "horse",
+                  "y": 234
+                },
+                {
+                  "x": "skateboard",
+                  "y": 300
+                },
+                {
+                  "x": "others",
+                  "y": 148
+                }
+              ]
+            },
+            {
+              "id": "norway",
+              "color": "hsl(317, 70%, 50%)",
+              "data": [
+                {
+                  "x": "plane",
+                  "y": 248
+                },
+                {
+                  "x": "helicopter",
+                  "y": 159
+                },
+                {
+                  "x": "boat",
+                  "y": 90
+                },
+                {
+                  "x": "train",
+                  "y": 239
+                },
+                {
+                  "x": "subway",
+                  "y": 76
+                },
+                {
+                  "x": "bus",
+                  "y": 299
+                },
+                {
+                  "x": "car",
+                  "y": 133
+                },
+                {
+                  "x": "moto",
+                  "y": 18
+                },
+                {
+                  "x": "bicycle",
+                  "y": 247
+                },
+                {
+                  "x": "horse",
+                  "y": 16
+                },
+                {
+                  "x": "skateboard",
+                  "y": 171
+                },
+                {
+                  "x": "others",
+                  "y": 270
+                }
+              ]
+            }
+          ]
 
   const tableColumns = [
     {
@@ -220,13 +375,73 @@ const Index: React.FC = () => {
     </Row>
 
       <Divider />
-    <Row>
-        <Area {...config} />
+    <Row style={{height: 500}}>
+      <ResponsiveLine
+          data={d}
+          margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+          xScale={{ type: 'point' }}
+          yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+          yFormat=" >-.2f"
+          axisTop={null}
+          axisRight={null}
+          axisBottom={{
+            orient: 'bottom',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'transportation',
+            legendOffset: 36,
+            legendPosition: 'middle'
+          }}
+          axisLeft={{
+            orient: 'left',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'count',
+            legendOffset: -40,
+            legendPosition: 'middle'
+          }}
+          // pointSize={10}
+          // pointColor={{ theme: 'background' }}
+          // pointBorderWidth={2}
+          // pointBorderColor={{ from: 'serieColor' }}
+          // pointLabelYOffset={-12}
+          enableArea={true}
+          useMesh={true}
+          legends={[
+            {
+              anchor: 'bottom-right',
+              direction: 'column',
+              justify: false,
+              translateX: 100,
+              translateY: 0,
+              itemsSpacing: 0,
+              itemDirection: 'left-to-right',
+              itemWidth: 80,
+              itemHeight: 20,
+              itemOpacity: 0.75,
+              symbolSize: 12,
+              symbolShape: 'circle',
+              symbolBorderColor: 'rgba(0, 0, 0, .5)',
+              effects: [
+                {
+                  on: 'hover',
+                  style: {
+                    itemBackground: 'rgba(0, 0, 0, .03)',
+                    itemOpacity: 1
+                  }
+                }
+              ]
+            }
+          ]}
+      />
+        {/*<Area {...config} />*/}
     </Row>
 
     <Divider />
 
-      <Tabs tabPosition="left">
+      <Tabs tabPosition="left" activeKey={'browser'}>
         <TabPane tab="Device Type" key="device_type">
 
         </TabPane>
