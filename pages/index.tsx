@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { votApi, useVotApi } from "../hooks/api"
 import Page from '../layouts/Page'
 import { Card, Statistic, Row, Col, Divider, Tabs, Radio, Space, Select, DatePicker, Table } from 'antd'
 const { RangePicker } = DatePicker;
@@ -12,280 +13,17 @@ const { Option, OptGroup } = Select;
 
 import { ResponsiveLine } from '@nivo/line'
 
-const Index: React.FC = () => {
+const Index: React.FC = (props) => {
 
-      let d: any = [
-            {
-              "id": "japan",
-              "color": "hsl(75, 70%, 50%)",
-              "data": [
-                {
-                  "x": "plane",
-                  "y": 17
-                },
-                {
-                  "x": "helicopter",
-                  "y": 157
-                },
-                {
-                  "x": "boat",
-                  "y": 277
-                },
-                {
-                  "x": "train",
-                  "y": 38
-                },
-                {
-                  "x": "subway",
-                  "y": 78
-                },
-                {
-                  "x": "bus",
-                  "y": 298
-                },
-                {
-                  "x": "car",
-                  "y": 152
-                },
-                {
-                  "x": "moto",
-                  "y": 102
-                },
-                {
-                  "x": "bicycle",
-                  "y": 50
-                },
-                {
-                  "x": "horse",
-                  "y": 145
-                },
-                {
-                  "x": "skateboard",
-                  "y": 196
-                },
-                {
-                  "x": "others",
-                  "y": 196
-                }
-              ]
-            },
-            {
-              "id": "france",
-              "color": "hsl(311, 70%, 50%)",
-              "data": [
-                {
-                  "x": "plane",
-                  "y": 124
-                },
-                {
-                  "x": "helicopter",
-                  "y": 156
-                },
-                {
-                  "x": "boat",
-                  "y": 276
-                },
-                {
-                  "x": "train",
-                  "y": 109
-                },
-                {
-                  "x": "subway",
-                  "y": 77
-                },
-                {
-                  "x": "bus",
-                  "y": 124
-                },
-                {
-                  "x": "car",
-                  "y": 26
-                },
-                {
-                  "x": "moto",
-                  "y": 150
-                },
-                {
-                  "x": "bicycle",
-                  "y": 41
-                },
-                {
-                  "x": "horse",
-                  "y": 94
-                },
-                {
-                  "x": "skateboard",
-                  "y": 148
-                },
-                {
-                  "x": "others",
-                  "y": 112
-                }
-              ]
-            },
-            {
-              "id": "us",
-              "color": "hsl(258, 70%, 50%)",
-              "data": [
-                {
-                  "x": "plane",
-                  "y": 223
-                },
-                {
-                  "x": "helicopter",
-                  "y": 109
-                },
-                {
-                  "x": "boat",
-                  "y": 186
-                },
-                {
-                  "x": "train",
-                  "y": 69
-                },
-                {
-                  "x": "subway",
-                  "y": 15
-                },
-                {
-                  "x": "bus",
-                  "y": 193
-                },
-                {
-                  "x": "car",
-                  "y": 72
-                },
-                {
-                  "x": "moto",
-                  "y": 142
-                },
-                {
-                  "x": "bicycle",
-                  "y": 8
-                },
-                {
-                  "x": "horse",
-                  "y": 291
-                },
-                {
-                  "x": "skateboard",
-                  "y": 159
-                },
-                {
-                  "x": "others",
-                  "y": 123
-                }
-              ]
-            },
-            {
-              "id": "germany",
-              "color": "hsl(56, 70%, 50%)",
-              "data": [
-                {
-                  "x": "plane",
-                  "y": 105
-                },
-                {
-                  "x": "helicopter",
-                  "y": 102
-                },
-                {
-                  "x": "boat",
-                  "y": 6
-                },
-                {
-                  "x": "train",
-                  "y": 34
-                },
-                {
-                  "x": "subway",
-                  "y": 30
-                },
-                {
-                  "x": "bus",
-                  "y": 268
-                },
-                {
-                  "x": "car",
-                  "y": 130
-                },
-                {
-                  "x": "moto",
-                  "y": 275
-                },
-                {
-                  "x": "bicycle",
-                  "y": 179
-                },
-                {
-                  "x": "horse",
-                  "y": 234
-                },
-                {
-                  "x": "skateboard",
-                  "y": 300
-                },
-                {
-                  "x": "others",
-                  "y": 148
-                }
-              ]
-            },
-            {
-              "id": "norway",
-              "color": "hsl(317, 70%, 50%)",
-              "data": [
-                {
-                  "x": "plane",
-                  "y": 248
-                },
-                {
-                  "x": "helicopter",
-                  "y": 159
-                },
-                {
-                  "x": "boat",
-                  "y": 90
-                },
-                {
-                  "x": "train",
-                  "y": 239
-                },
-                {
-                  "x": "subway",
-                  "y": 76
-                },
-                {
-                  "x": "bus",
-                  "y": 299
-                },
-                {
-                  "x": "car",
-                  "y": 133
-                },
-                {
-                  "x": "moto",
-                  "y": 18
-                },
-                {
-                  "x": "bicycle",
-                  "y": 247
-                },
-                {
-                  "x": "horse",
-                  "y": 16
-                },
-                {
-                  "x": "skateboard",
-                  "y": 171
-                },
-                {
-                  "x": "others",
-                  "y": 270
-                }
-              ]
-            }
-          ]
+  const data = useVotApi('errors_chart', () => votApi.getErrorsChart());
+
+  let d: any = [
+        {
+          "id": "germany",
+          "color": "hsl(56, 70%, 50%)",
+          "data": []
+        }
+      ]
 
   const tableColumns = [
     {
@@ -355,9 +93,9 @@ const Index: React.FC = () => {
       <Col span={24}>
         <Select defaultValue="l12h" size='large' style={{ width: 200 }}>
           <Option value="l60m">Last 60 minutes</Option>
-          <Option value="l6h">Last 6 hourse</Option>
-          <Option value="l12h">Last 12 hourse</Option>
-          <Option value="l24">Last 24 hourse</Option>
+          <Option value="l6h">Last 6 hours</Option>
+          <Option value="l12h">Last 12 hours</Option>
+          <Option value="l24">Last 24 hours</Option>
           <Option value="l3e">Last 3 days</Option>
           <OptGroup label="Custom">
             <Option value="datepicker">
@@ -449,7 +187,7 @@ const Index: React.FC = () => {
           <Table columns={tableColumns} dataSource={tableData} pagination={false} />
         </TabPane>
         <TabPane tab="Operation System" key="os"></TabPane>
-        <TabPane tab="Source Host" key="sourse_host"></TabPane>
+        <TabPane tab="Source Host" key="source_host"></TabPane>
         <TabPane tab="Video Type" key="video_type"></TabPane>
         <TabPane tab="Video Id" key="video_id"></TabPane>
         <TabPane tab="Video Title" key="video_title"></TabPane>
