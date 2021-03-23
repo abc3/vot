@@ -51,7 +51,7 @@ const Page: React.FC = (props) => (
           {/* <Breadcrumb.Item>Errors</Breadcrumb.Item>
           <Breadcrumb.Item>Pulse</Breadcrumb.Item> */}
         </Breadcrumb>
-        <div className="site-layout-background" style={{ padding: 24, minHeight: 360, maxWidth: 1200 }}>
+        <div className="site-layout-background" style={{ padding: 12, minHeight: 360, maxWidth: 1200 }}>
           {props.children}
         </div>
       </Content>

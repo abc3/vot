@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { votApi, useVotApi } from "../hooks/api"
 import Page from '../layouts/Page'
-import {Card, Statistic, Row, Col, Divider, Tabs, Radio, Space, Select, DatePicker, Table,
-  Button, Form, Input} from 'antd'
+import FilterComponent from '../components/filter'
+import {Card, Statistic, Row, Col, Divider, Tabs, Radio, Space, Select, DatePicker, Table} from 'antd'
 const { RangePicker } = DatePicker;
 const { TabPane } = Tabs;
 const { Option, OptGroup } = Select;
-import { DownOutlined, UpOutlined, PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 // import dynamic from 'next/dynamic'
 // const Area = dynamic(
 //   () => import("@ant-design/charts").then((mod) => mod.Area) as any,
@@ -140,52 +139,8 @@ const Index: React.FC = (props) => {
   useEffect(() => { }, [])
 
   return (<Page>
-    <Card
-      bordered={false}
-      title="Filters"
-      size="small"
-      extra={<a><UpOutlined/></a>} // DownOutlined
-      // style={{ paddingTop: 24 }}
-      // bodyStyle={{ padding: '0 32px 40px 32px' }}
-    >
-      <Row style={{marginTop: 12}} justify={'start'}>
-        <Col span={3}>
-          <Select defaultValue={'geo'} style={{width: '90%'}}>
-            <Option value={'geo'}>Geo</Option>
-          </Select>
-        </Col>
-        <Col span={2}>
-          <Select defaultValue={'in'}>
-            <Option value={'in'}>IN</Option>
-          </Select>
-        </Col>
-        <Col span={18}>
-          <Select
-            mode="multiple"
-            style={{ width: '100%' }}
-            placeholder="Please select"
-            defaultValue={['Ukraine', 'Spain', 'London']}
-          >
-          </Select>
 
-        </Col>
-        <Col span={1}>
-          <MinusCircleOutlined style={{marginTop: 9, marginLeft: 9}} />
-        </Col>
-      </Row>
-
-      <Row>
-        <Button type="dashed" block icon={<PlusOutlined />} style={{marginTop: 12}}>Add field</Button>
-      </Row>
-      <Divider plain>
-        <Space>
-          <Button>Clear</Button>
-          <Button type={'primary'}>Search</Button>
-        </Space>
-      </Divider>
-    </Card>
-
-    <div style={{height: 24}}></div>
+    <FilterComponent />
 
     <Card
       // className={styles.listCard}
