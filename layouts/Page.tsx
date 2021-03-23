@@ -4,11 +4,12 @@ import Head from "./Head";
 // import Footer from "./Footer";
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
+  PlaySquareOutlined,
+  WarningOutlined,
+  DashboardOutlined,
+  HistoryOutlined,
+  SelectOutlined,
+  VideoCameraAddOutlined
 } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -20,9 +21,12 @@ const Page: React.FC = (props) => (
     <Sider collapsible >
       <div className="logo"><h1 style={{ color: '#fff', marginTop: 12,marginLeft: 12, fontSize: '2em' }}>VOT</h1></div>
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-        <Menu.Item key="1" icon={<PieChartOutlined />}>
-          Playback Errors
-        </Menu.Item>
+        <Menu.Item key="dashboard" icon={<DashboardOutlined />}>Dashboard</Menu.Item>
+        <Menu.Item key="views" icon={<PlaySquareOutlined />}>Views</Menu.Item>
+        <Menu.Item key="duration" icon={<HistoryOutlined />}>Duration</Menu.Item>
+        <Menu.Item key="buffering" icon={<SelectOutlined />}>Buffering</Menu.Item>
+        <Menu.Item key="join_time" icon={<VideoCameraAddOutlined />}>Join time</Menu.Item>
+        <Menu.Item key="1" icon={<WarningOutlined />}>Errors</Menu.Item>
         {/* <Menu.Item key="2" icon={<DesktopOutlined />}>
           Option 2
             </Menu.Item>

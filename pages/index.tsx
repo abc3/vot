@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { votApi, useVotApi } from "../hooks/api"
 import Page from '../layouts/Page'
-import { Card, Statistic, Row, Col, Divider, Tabs, Radio, Space, Select, DatePicker, Table } from 'antd'
+import {Card, Statistic, Row, Col, Divider, Tabs, Radio, Space, Select, DatePicker, Table,
+  Button, Form, Input} from 'antd'
 const { RangePicker } = DatePicker;
 const { TabPane } = Tabs;
 const { Option, OptGroup } = Select;
+import { DownOutlined, UpOutlined, PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 // import dynamic from 'next/dynamic'
 // const Area = dynamic(
 //   () => import("@ant-design/charts").then((mod) => mod.Area) as any,
@@ -18,12 +20,70 @@ const Index: React.FC = (props) => {
   const data = useVotApi('errors_chart', () => votApi.getErrorsChart());
 
   let d: any = [
-        {
-          "id": "germany",
-          "color": "hsl(56, 70%, 50%)",
-          "data": []
-        }
+    {
+      "id": "Start Errors",
+      // "color": "hsl(56, 70%, 50%)",
+      "data": [
+        { x: "2021-03-23 00:00", y: 4 },
+        { x: "2021-03-23 01:00", y: 2 },
+        { x: "2021-03-23 02:00", y: 2 },
+        { x: "2021-03-23 03:00", y: 5 },
+        { x: "2021-03-23 04:00", y: 2 },
+        { x: "2021-03-23 05:00", y: 1 },
+        { x: "2021-03-23 06:00", y: 3 },
+        { x: "2021-03-23 07:00", y: 3 },
+        { x: "2021-03-23 08:00", y: 6 },
+        { x: "2021-03-23 09:00", y: 7 },
+        { x: "2021-03-23 10:00", y: 1 },
+        { x: "2021-03-23 11:00", y: 5 },
+        { x: "2021-03-23 12:00", y: 6 }
       ]
+    },
+    {
+      "id": "Player Crash",
+      // "color": "hsl(56, 70%, 50%)",
+      "data": [
+        { x: "2021-03-23 00:00", y: 10 },
+        { x: "2021-03-23 01:00", y: 12 },
+        { x: "2021-03-23 02:00", y: 8 },
+        { x: "2021-03-23 03:00", y: 5 },
+        { x: "2021-03-23 04:00", y: 2 },
+        { x: "2021-03-23 05:00", y: 1 },
+        { x: "2021-03-23 06:00", y: 3 },
+        { x: "2021-03-23 07:00", y: 3 },
+        { x: "2021-03-23 08:00", y: 6 },
+        { x: "2021-03-23 09:00", y: 7 },
+        { x: "2021-03-23 10:00", y: 9 },
+        { x: "2021-03-23 11:00", y: 5 },
+        { x: "2021-03-23 12:00", y: 6 }
+      ]
+    },
+    {
+      "id": "Playback Errors",
+      // "color": "hsl(56, 70%, 50%)",
+      "data": [
+        { x: "2021-03-23 00:00", y: 2 },
+        { x: "2021-03-23 01:00", y: 5 },
+        { x: "2021-03-23 02:00", y: 5 },
+        { x: "2021-03-23 03:00", y: 5 },
+        { x: "2021-03-23 04:00", y: 2 },
+        { x: "2021-03-23 05:00", y: 1 },
+        { x: "2021-03-23 06:00", y: 2 },
+        { x: "2021-03-23 07:00", y: 1 },
+        { x: "2021-03-23 08:00", y: 2 },
+        { x: "2021-03-23 09:00", y: 4 },
+        { x: "2021-03-23 10:00", y: 6 },
+        { x: "2021-03-23 11:00", y: 9 },
+        { x: "2021-03-23 12:00", y: 2 }
+      ]
+    }
+    ]
+
+  // // @ts-ignore
+  // if (data.value?.data) {
+  //   // @ts-ignore
+  //   d[0].data = data.value?.data
+  // }
 
   const tableColumns = [
     {
@@ -81,9 +141,55 @@ const Index: React.FC = (props) => {
 
   return (<Page>
     <Card
+      bordered={false}
+      title="Filters"
+      size="small"
+      extra={<a><UpOutlined/></a>} // DownOutlined
+      // style={{ paddingTop: 24 }}
+      // bodyStyle={{ padding: '0 32px 40px 32px' }}
+    >
+      <Row style={{marginTop: 12}} justify={'start'}>
+        <Col span={3}>
+          <Select defaultValue={'geo'} style={{width: '90%'}}>
+            <Option value={'geo'}>Geo</Option>
+          </Select>
+        </Col>
+        <Col span={2}>
+          <Select defaultValue={'in'}>
+            <Option value={'in'}>IN</Option>
+          </Select>
+        </Col>
+        <Col span={18}>
+          <Select
+            mode="multiple"
+            style={{ width: '100%' }}
+            placeholder="Please select"
+            defaultValue={['Ukraine', 'Spain', 'London']}
+          >
+          </Select>
+
+        </Col>
+        <Col span={1}>
+          <MinusCircleOutlined style={{marginTop: 9, marginLeft: 9}} />
+        </Col>
+      </Row>
+
+      <Row>
+        <Button type="dashed" block icon={<PlusOutlined />} style={{marginTop: 12}}>Add field</Button>
+      </Row>
+      <Divider plain>
+        <Space>
+          <Button>Clear</Button>
+          <Button type={'primary'}>Search</Button>
+        </Space>
+      </Divider>
+    </Card>
+
+    <div style={{height: 24}}></div>
+
+    <Card
       // className={styles.listCard}
       bordered={false}
-      // title="qweqwe"
       style={{ paddingTop: 24 }}
       bodyStyle={{ padding: '0 32px 40px 32px' }}
       loading={false}
@@ -114,29 +220,46 @@ const Index: React.FC = (props) => {
 
       <Divider />
     <Row style={{height: 500}}>
+      <Radio.Group defaultValue="a">
+        <Radio.Button value="a">#</Radio.Button>
+        <Radio.Button value="b">%</Radio.Button>
+      </Radio.Group>
+
       <ResponsiveLine
+          colors={{ scheme: 'category10' }}
           data={d}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-          xScale={{ type: 'point' }}
-          yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+          yScale={{ type: 'linear', min: 0, max: 'auto', stacked: true, reverse: false }}
           yFormat=" >-.2f"
+          // xScale={{ type: 'point' }}
+          xScale={{
+            type: "time",
+            format: "%Y-%m-%d %H:%M",
+            precision: "hour"
+          }}
+          xFormat="time:%Hh"
           axisTop={null}
           axisRight={null}
           axisBottom={{
-            orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'transportation',
+            orient: "bottom",
+            format: "%H:%M",
+            // legend: "time",
             legendOffset: 36,
-            legendPosition: 'middle'
+            legendPosition: "middle"
+            // orient: 'bottom',
+            // tickSize: 5,
+            // tickPadding: 5,
+            // tickRotation: 0,
+            // legend: 'transportation',
+            // legendOffset: 36,
+            // legendPosition: 'middle'
           }}
           axisLeft={{
             orient: 'left',
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'count',
+            // legend: 'count',
             legendOffset: -40,
             legendPosition: 'middle'
           }}
