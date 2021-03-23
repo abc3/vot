@@ -1,7 +1,7 @@
 import {
   Errors,
   Fetcher,
-  Response
+  ChartPointsResponse
 } from "./h";
 import { getItem } from "../../lib/cookie";
 
@@ -48,7 +48,7 @@ export class VotApi {
   }
 
   getErrorsChart() {
-    return this.f.get<any>(`${this.apiBase}errors_chart`);
+    return this.f.get<ChartPointsResponse>(`${this.apiBase}errors_chart`);
   }
 
 }
