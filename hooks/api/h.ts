@@ -34,6 +34,16 @@ export interface Fetcher {
   removeHeader: (k: string) => void
 }
 
-export interface UrlResponse {
-  url: string
+export interface ChartPointsResponse {
+  chart: ChartPoint[]
+}
+
+export interface ChartPoint {
+  x: string,
+  y: number
+}
+
+export interface ChartData {
+  id: string,
+  data: ChartPoint[]
 }
