@@ -9,7 +9,7 @@ const { RangePicker } = DatePicker;
 const { TabPane } = Tabs;
 const { Option, OptGroup } = Select;
 
-const IndexPage: React.FC = (props) => {
+const ViewsPage: React.FC = (props) => {
   const data = useVotApi('errors_chart', () => votApi.getErrorsChart());
   const chartData: ChartData = {
     id: 'Errors', data: (!data.isError ? data.value?.chart : [])
@@ -77,7 +77,7 @@ const IndexPage: React.FC = (props) => {
   return (<Page>
 
     <PageHeader
-      title="Errors Chart"
+      title="Views Chart"
       subTitle="bla bla bla description"
       onBack={() => null}
     />
@@ -92,58 +92,58 @@ const IndexPage: React.FC = (props) => {
       loading={false}
     >
 
-    <Row>
-      <Col span={24}>
-        <Select defaultValue="l12h" size='large' style={{ width: 200 }}>
-          <Option value="l60m">Last 60 minutes</Option>
-          <Option value="l6h">Last 6 hours</Option>
-          <Option value="l12h">Last 12 hours</Option>
-          <Option value="l24">Last 24 hours</Option>
-          <Option value="l3e">Last 3 days</Option>
-          <OptGroup label="Custom">
-            <Option value="datepicker">
+      <Row>
+        <Col span={24}>
+          <Select defaultValue="l12h" size='large' style={{ width: 200 }}>
+            <Option value="l60m">Last 60 minutes</Option>
+            <Option value="l6h">Last 6 hours</Option>
+            <Option value="l12h">Last 12 hours</Option>
+            <Option value="l24">Last 24 hours</Option>
+            <Option value="l3e">Last 3 days</Option>
+            <OptGroup label="Custom">
+              <Option value="datepicker">
                 <Space direction="vertical" size={12}>
                   <RangePicker />
                 </Space>
-            </Option>
-          </OptGroup>
-        </Select>
+              </Option>
+            </OptGroup>
+          </Select>
 
-        <Statistic style={{ float: 'right' }} title="Total video views" value={1201025} />
-        <Statistic style={{ float: 'right', marginRight: 21 }} title="Playback Errors Score" value={93} suffix="/ 100" />
-      </Col>
-    </Row>
+          <Statistic style={{ float: 'right' }} title="Total video views" value={1201025} />
+          <Statistic style={{ float: 'right', marginRight: 21 }} title="Playback Errors Score" value={93} suffix="/ 100" />
+        </Col>
+      </Row>
 
-    <Divider />
+      <Divider />
 
-    <Row style={{height: 500}}>
-      <LineChartComponent chartData={[chartData]} />
-    </Row>
+      <Row style={{height: 500}}>
+        <LineChartComponent chartData={[chartData]} />
+      </Row>
 
-    <Divider />
+      <Divider />
 
-    <Tabs tabPosition="left" activeKey={'browser'}>
-      <TabPane tab="Device Type" key="device_type">
+      <Tabs tabPosition="left" activeKey={'browser'}>
+        <TabPane tab="Device Type" key="device_type">
 
-      </TabPane>
-      <TabPane tab="Browser" key="browser">
-        <Table
-          rowSelection={rowSelection}
-          columns={tableColumns}
-          dataSource={tableData}
-          pagination={false}
-        />
-      </TabPane>
-      <TabPane tab="Operation System" key="os"></TabPane>
-      <TabPane tab="Source Host" key="source_host"></TabPane>
-      <TabPane tab="Video Type" key="video_type"></TabPane>
-      <TabPane tab="Video Id" key="video_id"></TabPane>
-      <TabPane tab="Video Title" key="video_title"></TabPane>
-    </Tabs>
+        </TabPane>
+        <TabPane tab="Browser" key="browser">
+          <Table
+            rowSelection={rowSelection}
+            columns={tableColumns}
+            dataSource={tableData}
+            pagination={false}
+          />
+        </TabPane>
+        <TabPane tab="Operation System" key="os"></TabPane>
+        <TabPane tab="Source Host" key="source_host"></TabPane>
+        <TabPane tab="Video Type" key="video_type"></TabPane>
+        <TabPane tab="Video Id" key="video_id"></TabPane>
+        <TabPane tab="Video Title" key="video_title"></TabPane>
+      </Tabs>
 
     </Card>
   </Page>)
 
 }
 
-export default IndexPage;
+export default ViewsPage;
