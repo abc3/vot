@@ -11,6 +11,9 @@ import {
   UserOutlined,
   SettingOutlined
 } from '@ant-design/icons';
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState, useEffect } from "react";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -31,20 +34,36 @@ class SettingsOutlined extends React.Component {
   }
 }
 
-const Page: React.FC = (props) => (
+const Page: React.FC = (props) => {
+  const router = useRouter()
+  const [activeMenu, setActiveMenu] = useState('errors')
+  useEffect(() => {
+    if (router.pathname == '/') {
+      setActiveMenu('errors')
+    } else {
+      setActiveMenu(router.pathname.substring(1))
+    }
+  }, [])
+  return (
   <Layout style={{ minHeight: '100vh' }}>
     <Head {...props} />
     <Sider collapsible >
       <div className="logo">
         <h1 style={{ color: '#fff', marginTop: 12,marginLeft: 12, fontSize: '2em' }}>VOT</h1>
       </div>
-      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+      <Menu theme="dark" selectedKeys={[activeMenu]} mode="inline">
         <Menu.Item key="dashboard" icon={<DashboardOutlined />}>Dashboard</Menu.Item>
-        <Menu.Item key="views" icon={<PlaySquareOutlined />}>Views</Menu.Item>
+        <Menu.Item key="views" icon={<PlaySquareOutlined />}>
+          <Link href="/views">
+            <a >Views</a>
+          </Link>
+        </Menu.Item>
         <Menu.Item key="duration" icon={<HistoryOutlined />}>Duration</Menu.Item>
         <Menu.Item key="buffering" icon={<SelectOutlined />}>Buffering</Menu.Item>
         <Menu.Item key="join_time" icon={<VideoCameraAddOutlined />}>Join time</Menu.Item>
-        <Menu.Item key="1" icon={<WarningOutlined />}>Errors</Menu.Item>
+        <Menu.Item key="errors" icon={<WarningOutlined />}>
+          <Link href="/">Errors</Link>
+        </Menu.Item>
         <Menu.Item key="settings" icon={<SettingOutlined />}>Settings</Menu.Item>
         {/* <Menu.Item key="2" icon={<DesktopOutlined />}>
           Option 2
@@ -83,7 +102,7 @@ const Page: React.FC = (props) => (
       <Footer style={{ textAlign: 'center' }}>Streamband 2021</Footer>
     </Layout>
   </Layout>
-);
+)}
 
 export default Page;
 
