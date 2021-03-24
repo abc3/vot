@@ -4,12 +4,12 @@ import Page from '../layouts/Page'
 import FilterComponent from '../components/filter'
 import LineChartComponent from '../components/line_chart'
 import { ChartData } from '../hooks/api/h'
-import { Card, Statistic, Row, Col, Divider, Tabs, Space, Select, DatePicker, Table } from 'antd'
+import {Card, Statistic, Row, Col, Divider, Tabs, Space, Select, DatePicker, Table, PageHeader} from 'antd'
 const { RangePicker } = DatePicker;
 const { TabPane } = Tabs;
 const { Option, OptGroup } = Select;
 
-const Index: React.FC = (props) => {
+const IndexPage: React.FC = (props) => {
   const data = useVotApi('errors_chart', () => votApi.getErrorsChart());
   const chartData: ChartData = {
     id: 'Errors', data: (!data.isError ? data.value?.chart : [])
@@ -71,6 +71,12 @@ const Index: React.FC = (props) => {
 
   return (<Page>
 
+    <PageHeader
+      title="Errors Chart"
+      subTitle="bla bla bla description"
+      onBack={() => null}
+    />
+
     <FilterComponent />
 
     <Card
@@ -129,5 +135,4 @@ const Index: React.FC = (props) => {
 
 }
 
-export default Index;
-
+export default IndexPage;
