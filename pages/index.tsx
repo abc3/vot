@@ -69,6 +69,11 @@ const IndexPage: React.FC = (props) => {
 
   useEffect(() => { }, [])
 
+  const rowSelection = {
+    selectedRowKeys: [],
+    // onChange: this.onSelectChange,
+  }
+
   return (<Page>
 
     <PageHeader
@@ -109,26 +114,32 @@ const IndexPage: React.FC = (props) => {
       </Col>
     </Row>
 
-      <Divider />
+    <Divider />
+
     <Row style={{height: 500}}>
       <LineChartComponent chartData={[chartData]} />
     </Row>
 
     <Divider />
 
-      <Tabs tabPosition="left" activeKey={'browser'}>
-        <TabPane tab="Device Type" key="device_type">
+    <Tabs tabPosition="left" activeKey={'browser'}>
+      <TabPane tab="Device Type" key="device_type">
 
-        </TabPane>
-        <TabPane tab="Browser" key="browser">
-          <Table columns={tableColumns} dataSource={tableData} pagination={false} />
-        </TabPane>
-        <TabPane tab="Operation System" key="os"></TabPane>
-        <TabPane tab="Source Host" key="source_host"></TabPane>
-        <TabPane tab="Video Type" key="video_type"></TabPane>
-        <TabPane tab="Video Id" key="video_id"></TabPane>
-        <TabPane tab="Video Title" key="video_title"></TabPane>
-      </Tabs>
+      </TabPane>
+      <TabPane tab="Browser" key="browser">
+        <Table
+          rowSelection={rowSelection}
+          columns={tableColumns}
+          dataSource={tableData}
+          pagination={false}
+        />
+      </TabPane>
+      <TabPane tab="Operation System" key="os"></TabPane>
+      <TabPane tab="Source Host" key="source_host"></TabPane>
+      <TabPane tab="Video Type" key="video_type"></TabPane>
+      <TabPane tab="Video Id" key="video_id"></TabPane>
+      <TabPane tab="Video Title" key="video_title"></TabPane>
+    </Tabs>
 
     </Card>
   </Page>)
