@@ -13,6 +13,7 @@
     "@nivo/bar": "^0.67.0",
     "@nivo/core": "^0.67.0",
     "@nivo/line": "^0.67.0",
+    "ant-design-pro": "^2.3.2",
     "antd": "^4.13.1",
     "classnames": "^2.2.6",
     "date-fns": "^2.15.0",
@@ -25,7 +26,8 @@
     "react-window": "^1.8.5",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^1.2.1",
-    "swr": "^0.5.4"
+    "swr": "^0.5.4",
+    "@vot/client": "https://github.com/streamband/vot-js-client#main"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
