@@ -51,4 +51,8 @@ export class VotApi {
     return this.f.get<ChartPointsResponse>(`${this.apiBase}errors_chart`);
   }
 
+  getViewsChart() {
+    return this.f.get<ChartPointsResponse>(`${this.apiBase}views`);
+  }
+
 }

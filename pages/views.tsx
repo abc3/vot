@@ -10,9 +10,9 @@ const { TabPane } = Tabs;
 const { Option, OptGroup } = Select;
 
 const ViewsPage: React.FC = (props) => {
-  const data = useVotApi('errors_chart', () => votApi.getErrorsChart());
+  const data = useVotApi('views_chart', () => votApi.getViewsChart());
   const chartData: ChartData = {
-    id: 'Errors', data: (!data.isError ? data.value?.chart : [])
+    id: 'Views', data: (!data.isError ? data.value?.chart : [])
   }
 
   const tableColumns = [

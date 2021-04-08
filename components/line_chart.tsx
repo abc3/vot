@@ -20,7 +20,7 @@ const LineChartComponent: React.FC<{ chartData: ChartData[] }> = ({ chartData })
       xScale={{
         type: "time",
           format: "%Y-%m-%d %H:%M",
-          precision: "hour"
+          precision: "minute"
       }}
       xFormat="time:%Hh"
       axisTop={null}

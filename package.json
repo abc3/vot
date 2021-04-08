@@ -13,10 +13,13 @@
     "@nivo/bar": "^0.67.0",
     "@nivo/core": "^0.67.0",
     "@nivo/line": "^0.67.0",
+    "@vot/client": "https://github.com/streamband/vot-js-client#main",
     "ant-design-pro": "^2.3.2",
     "antd": "^4.13.1",
     "classnames": "^2.2.6",
     "date-fns": "^2.15.0",
+    "faker": "^5.5.2",
+    "moment": "^2.29.1",
     "next": "9.4.0",
     "next-redux-wrapper": "^6.0.2",
     "react": "16.13.1",
@@ -26,8 +29,7 @@
     "react-window": "^1.8.5",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^1.2.1",
-    "swr": "^0.5.4",
-    "@vot/client": "https://github.com/streamband/vot-js-client#main"
+    "swr": "^0.5.4"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
