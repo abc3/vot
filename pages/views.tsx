@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { votApi, useVotApi } from "../hooks/api"
 import Page from '../layouts/Page'
 import FilterComponent from '../components/filter'
@@ -10,9 +10,13 @@ const { TabPane } = Tabs;
 const { Option, OptGroup } = Select;
 
 const ViewsPage: React.FC = (props) => {
-  const data = useVotApi('errors_chart', () => votApi.getErrorsChart());
+  const [timeframe, setTimeframe] = useState('12h');
+  const data = useVotApi(
+    ['views_chart', timeframe],
+    (key, timeframe) => votApi.getViewsChart(timeframe)
+  );
   const chartData: ChartData = {
-    id: 'Errors', data: (!data.isError ? data.value?.chart : [])
+    id: 'Views', data: (!data.isError ? data.value?.chart : [])
   }
 
   const tableColumns = [
@@ -94,12 +98,14 @@ const ViewsPage: React.FC = (props) => {
 
       <Row>
         <Col span={24}>
-          <Select defaultValue="l12h" size='large' style={{ width: 200 }}>
-            <Option value="l60m">Last 60 minutes</Option>
-            <Option value="l6h">Last 6 hours</Option>
-            <Option value="l12h">Last 12 hours</Option>
-            <Option value="l24">Last 24 hours</Option>
-            <Option value="l3e">Last 3 days</Option>
+          <Select defaultValue="12h" size='large' style={{ width: 200 }} onChange={(key) => {
+            setTimeframe(key)
+          }}>
+            <Option value="1h">Last 60 minutes</Option>
+            <Option value="6h">Last 6 hours</Option>
+            <Option value="12h">Last 12 hours</Option>
+            <Option value="24">Last 24 hours</Option>
+            <Option value="72h">Last 3 days</Option>
             <OptGroup label="Custom">
               <Option value="datepicker">
                 <Space direction="vertical" size={12}>

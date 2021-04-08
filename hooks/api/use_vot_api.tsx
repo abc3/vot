@@ -1,7 +1,7 @@
 import { Response } from './h';
 import useSWR from "swr";
 
-export function useVotApi<T>(key: string, fetcher: () => Promise<Response<T>>): Response<T> {
+export function useVotApi<T>(key: Array<string>, fetcher: (key: string, secondKey: string) => Promise<Response<T>>): Response<T> {
     let { data, error } = useSWR<Response<T>>(key, fetcher, { revalidateOnFocus: false })
     // console.log('useVotApi', key, data, error)
     if (error) {
