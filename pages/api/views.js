@@ -35,5 +35,6 @@ export default async (req, res) => {
     default:
       chartData = fake_data(12, 2)
   }
+  // await new Promise(resolve => setTimeout(resolve, 5000));
   res.json(JSON.stringify({ chart: chartData }))
 }

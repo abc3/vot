@@ -1,18 +1,39 @@
-import React from "react";
-import { Radio } from "antd";
+import React, { useState, useEffect } from "react";
+import { Radio, Spin } from "antd";
 import { ResponsiveLine } from "@nivo/line";
 import { ChartData } from '../hooks/api/h'
 
 const LineChartComponent: React.FC<{ chartData: ChartData[] }> = ({ chartData }) => {
+  const [view, setView] = useState('#')
+  const [points, setPoints] = useState([{x: '', y: 0}])
+
+  useEffect(() => {
+    setPoints(chartData[0].data)
+  }, [chartData])
+
+  if (chartData[0].data.length === 0)
+    return (<Spin tip="Loading..."/>)
+
   return (<>
-    <Radio.Group defaultValue="a">
-    <Radio.Button value="a">#</Radio.Button>
-      <Radio.Button value="b">%</Radio.Button>
+    <Radio.Group defaultValue={view}>
+      <Radio.Button value="#" onClick={() => {
+        setPoints(chartData[0].data)
+      }}>#</Radio.Button>
+      <Radio.Button value="%" onClick={() => {
+        const max = Math.max.apply(Math, chartData[0].data.map(e => e.y ))
+        let newData = chartData[0].data.map(e => {
+          return {
+            x: e.x,
+            y: Math.round(e.y * 100 / max)
+          }
+        })
+        setPoints(newData)
+      }}>%</Radio.Button>
     </Radio.Group>
 
     <ResponsiveLine
       colors={{ scheme: 'category10' }}
-      data={ chartData }
+      data={ [{id: chartData[0].id, data: points}] }
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
       yScale={{ type: 'linear', min: 0, max: 'auto', stacked: true, reverse: false }}
       yFormat=" >-.2f"
