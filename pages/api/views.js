@@ -3,7 +3,7 @@ const moment = require('moment');
 
 const fake_data = (lastHour, pointsPerHour) => {
   let data = []
-  let date = moment().subtract(12, 'hours');
+  let date = moment().subtract(lastHour, 'hours');
   for (let i = 0; i < lastHour * pointsPerHour; i ++) {
     date.add(60 / pointsPerHour, 'minutes')
     data.push({
