@@ -1484,6 +1484,11 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@barhamon/filters@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@barhamon/filters/-/filters-0.2.0.tgz#4a54718587bb5c8f12b928bae29fdbb6b1cf94da"
+  integrity sha512-JGAlQBUBa3K86AmAW6JBEDt8jrDD828T8Hen9SkZfA29pU/SoxONgYTXiR3mxKpSByrpFbJlsa1AG4Oz15tY8g==
+
 "@ctrl/tinycolor@^3.4.0":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.4.0.tgz#c3c5ae543c897caa9c2a68630bed355be5f9990f"

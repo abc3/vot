@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/charts": "^1.0.19",
+    "@barhamon/filters": "^0.2.0",
     "@nivo/bar": "^0.67.0",
     "@nivo/core": "^0.67.0",
     "@nivo/line": "^0.67.0",
