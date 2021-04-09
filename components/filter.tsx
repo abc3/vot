@@ -1,13 +1,32 @@
 import {Button, Card, Col, Divider, Row, Select, Space, Form, Input} from "antd";
-const { Option, OptGroup } = Select;
+const { Option } = Select;
 import {MinusCircleOutlined, PlusOutlined, UpOutlined, DownOutlined} from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState} from "react";
 import { FormInstance } from 'antd/lib/form';
-import {addRule, Filters, toQueryString, Operators, fromArray} from "@barhamon/filters";
+import { operatorsAsArray } from "@barhamon/filters";
 
 const FilterComponent: React.FC = () => {
   const [visible, setVisible] = useState(true);
+  const [values, setValues] = useState<string[][]>([]);
   const formRef = React.createRef<FormInstance>();
+  const filterFields = [
+    {key: 'geo', name: 'Geo'},
+    {key: 'browser', name: 'Browser', value: ['Chrome', 'Firefox', 'Safari']},
+    {key: 'user_id', name: 'UserId', type: 'number'}
+  ]
+
+  const handleValueOptions = (index: number, key: string) => {
+    let update = [...values]
+    const field = filterFields.filter(e => e.key === key)[0]
+    if (field.value) {
+      update[index] = field.value
+    } else {
+      update[index] = []
+    }
+    setValues(update)
+  }
+
+  useEffect(() => { }, [])
 
   return (
     <Card
@@ -18,14 +37,12 @@ const FilterComponent: React.FC = () => {
         setVisible(!visible);
       }}>{visible ? <UpOutlined /> : <DownOutlined />}</a>} // DownOutlined
       style={{ marginBottom: 24 }}
-      // bodyStyle={{ padding: '0 32px 40px 32px' }}
     >
       <div style={{display: visible ? 'block' : 'none'}}>
 
-
         <Form name="filter_form_item" ref={formRef}>
           <Form.List
-            name="names"
+            name="filters"
           >
             {(fields, { add, remove }, { errors }) => (
               <>
@@ -33,33 +50,54 @@ const FilterComponent: React.FC = () => {
                   <Form.Item
                     required={false}
                     key={field.key}
+                    style={{marginBottom: 0}}
                   >
-                    <Form.Item
-                      {...field}
-                      validateTrigger={['onChange', 'onBlur']}
-                      rules={[ ]}
-                      noStyle
-                    >
-
                       <Row style={{marginTop: 12}} justify={'start'}>
                         <Col span={3}>
-                          <Select defaultValue={'geo'} style={{width: '90%'}}>
-                            <Option value={'geo'}>Geo</Option>
-                          </Select>
+                          <Form.Item {...field}
+                                     name={[field.name, 'field']}
+                                     fieldKey={[field.fieldKey, 'field']}
+                                     initialValue={'geo'}
+                                     style={{marginBottom: 0}}
+                                     rules={[{ required: true }]}>
+                            <Select style={{width: '90%'}} onChange={(key) => {
+                              handleValueOptions(index, key.toString())
+                            }}>
+                              {filterFields.map(e =>
+                                <Option key={e.key} value={e.key}>{e.name}</Option>
+                              )}
+                            </Select>
+                          </Form.Item>
                         </Col>
                         <Col span={2}>
-                          <Select defaultValue={'in'}>
-                            <Option value={'in'}>IN</Option>
-                          </Select>
+                          <Form.Item {...field}
+                                      name={[field.name, 'operator']}
+                                      fieldKey={[field.fieldKey, 'operator']}
+                                      initialValue={operatorsAsArray()[0].value}
+                                      style={{marginBottom: 0}}
+                                      rules={[{ required: true }]}>
+                            <Select>
+                              {operatorsAsArray().map(({value, content}) =>
+                                <Option key={value} value={value}>{content}</Option>
+                              )}
+                            </Select>
+                          </Form.Item>
                         </Col>
                         <Col span={18}>
-                          <Select
-                            mode="multiple"
-                            style={{ width: '80%', marginLeft: 12 }}
-                            placeholder="Please select"
-                            defaultValue={['Ukraine', 'Spain', 'London']}
-                          >
-                          </Select>
+                          <Form.Item {...field}
+                                      name={[field.name, 'value']}
+                                      fieldKey={[field.fieldKey, 'value']}
+                                      style={{marginBottom: 0}}
+                                      rules={[{ required: true }]}>
+                            <Select
+                              showSearch
+                              style={{ width: '80%', marginLeft: 12 }}
+                            >
+                              {values[index] && values[index].map((e: string | number) =>
+                                <Option key={e} value={e}>{e}</Option>
+                              )}
+                            </Select>
+                          </Form.Item>
 
                         </Col>
                         <Col span={1}>
@@ -72,7 +110,6 @@ const FilterComponent: React.FC = () => {
                           ) : null}
                         </Col>
                       </Row>
-                    </Form.Item>
                   </Form.Item>
                 ))}
                 <Form.Item>
