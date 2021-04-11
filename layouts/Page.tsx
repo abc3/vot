@@ -10,7 +10,8 @@ import {
   VideoCameraAddOutlined,
   UserOutlined,
   SettingOutlined,
-  AppstoreOutlined
+  AppstoreOutlined,
+  LoginOutlined
 } from '@ant-design/icons';
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -68,6 +69,9 @@ const Page: React.FC = (props) => {
         <Menu.Item key="settings" icon={<SettingOutlined />}>Settings</Menu.Item>
         <Menu.Item key="demo" icon={<AppstoreOutlined />}>
           <Link href="/demo">Demo</Link>
+        </Menu.Item>
+        <Menu.Item key="signin" icon={<LoginOutlined />}>
+          <Link href="/signin">Sign in</Link>
         </Menu.Item>
         {/* <Menu.Item key="2" icon={<DesktopOutlined />}>
           Option 2

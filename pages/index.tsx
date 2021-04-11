@@ -10,7 +10,7 @@ const { TabPane } = Tabs;
 const { Option, OptGroup } = Select;
 
 const IndexPage: React.FC = (props) => {
-  const data = useVotApi('errors_chart', () => votApi.getErrorsChart());
+  const data = useVotApi(['errors_chart'], () => votApi.getErrorsChart());
   const chartData: ChartData = {
     id: 'Errors', data: (!data.isError ? data.value?.chart : [])
   }
