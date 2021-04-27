@@ -70,6 +70,9 @@ const Page: React.FC = (props) => {
         <Menu.Item key="demo" icon={<AppstoreOutlined />}>
           <Link href="/demo">Demo</Link>
         </Menu.Item>
+        <Menu.Item key="shaka_demo" icon={<AppstoreOutlined />}>
+          <Link href="/shaka_demo">Shaka Demo</Link>
+        </Menu.Item>
         <Menu.Item key="signin" icon={<LoginOutlined />}>
           <Link href="/signin">Sign in</Link>
         </Menu.Item>
