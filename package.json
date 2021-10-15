@@ -14,8 +14,10 @@
     "@nivo/bar": "^0.67.0",
     "@nivo/core": "^0.67.0",
     "@nivo/line": "^0.67.0",
+    "@supabase/supabase-js": "^1.24.0",
     "@vot/client": "https://github.com/streamband/vot-js-client#main",
     "antd": "^4.13.1",
+    "caniuse-lite": "^1.0.30001267",
     "classnames": "^2.2.6",
     "date-fns": "^2.15.0",
     "faker": "^5.5.2",
@@ -25,12 +27,14 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-redux": "^7.2.1",
+    "react-video-js-player": "^1.1.1",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^1.2.1",
     "shaka-player": "^3.0.10",
-    "swr": "^0.5.4"
+    "swr": "^0.5.4",
+    "videojs-contrib-quality-levels": "^2.1.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
