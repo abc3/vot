@@ -1,28 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Page from '../layouts/Page'
 import {Card, PageHeader} from 'antd'
 import dynamic from 'next/dynamic'
 import 'videojs-contrib-quality-levels'
 import { createClient } from '@supabase/supabase-js'
+import videojs from 'video.js'
 
-interface Event {
-  type?: string
-  event?: string
-  session?: string
-  ip?: string
-  browser?: string
-  device?: string
-  os?: string
-  video_id?: string
-  video_name?: string
-  video_type?: string
-  category_name?: string
-  sub_category_name?: string
-  duration?: number
-  clientWidth?: number
-  clientHeight?: number
-  src?: string
-}
+// interface Event {
+//   type?: string
+//   event?: string
+//   session?: string
+//   ip?: string
+//   browser?: string
+//   device?: string
+//   os?: string
+//   video_id?: string
+//   video_name?: string
+//   video_type?: string
+//   category_name?: string
+//   sub_category_name?: string
+//   duration?: number
+//   clientWidth?: number
+//   clientHeight?: number
+//   src?: string
+// }
 
 const VideoPlayer = dynamic(
   // @ts-ignore
@@ -34,7 +35,7 @@ const supabase = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNDMwMjI3MiwiZXhwIjoxOTQ5ODc4MjcyfQ.HWMf1Gh5ESBzC6ld3COgfy6n6BxU_vqqMiOGhIA7i1A"
 )
 
-async function addEvent(event: Event): Promise<null | Event> {
+async function addEvent(event) {
   try {
     const { data, error } = await supabase.from('events').insert(event).single()
     if (error) {
@@ -49,11 +50,28 @@ async function addEvent(event: Event): Promise<null | Event> {
   }
 }
 
-const IndexPage: React.FC = (props) => {
+function votPlugin(options) {
+
+  if (options.customClass) {
+    this.addClass(options.customClass);
+  }
+
+  this.on('playing', function () {
+    videojs.log('playback began!');
+  });
+}
+
+const IndexPage = (props) => {
+
+  const playerRef = useRef(null);
 
   useEffect(() => {
-    addEvent({ event: 'test' })
+    // addEvent({ event: 'test' })
   }, [])
+
+  const handlePlayerReady = (player) => {
+    videojs.registerPlugin('votPlugin', votPlugin);
+  };
 
   return (<Page>
 
@@ -74,6 +92,8 @@ const IndexPage: React.FC = (props) => {
         // @ts-ignore
         bigPlayButton={true}
         controls={true}
+        onReady={handlePlayerReady}
+        ref={playerRef}
         src={"https://didkyjgwsjjjadhqgwqr.supabase.co/storage/v1/object/public/media/items/10/playlist.m3u8"}
         width="720"
         height="420"
